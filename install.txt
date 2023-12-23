@@ -1,0 +1,6 @@
+charset,UTF-8
+
+type,ghost
+name,山然にしき
+directory,zannnenn_nishiki
+

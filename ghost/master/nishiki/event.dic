@@ -1,0 +1,33 @@
+OnPopUp {
+    _loop = reference[3]
+    reference[3]    = IARRAY
+    while _loop == FUNCTIONEX('saori/popup/popup.dll', hwnd, reference) {
+    }
+}
+
+OnCloseOthers {
+    if ARRAYSIZE(otherGhostName) == 0 {
+        return
+    }
+    _str = ""
+    foreach otherGhostName; _s {
+        _str += _s + CHR(1)
+    }
+    _str = SUBSTR(_str, 0, STRLEN(_str) - 1)
+    "\![raiseother,%(_str),OnClose]"
+}
+
+OnForceCloseOthers {
+    _ = FUNCTIONEX('saori/send_script/send_script.dll', uniqueId, '\-')
+}
+
+OnResponseMoon {
+    case reference[0] {
+        when 'yes' {
+            '\0\s[5]はうあ！\w9\w9\s[3]そうなんですけどそうじゃないんです！'
+        }
+        when 'hidden' {
+            '\0\s[5]あれ！？\w9\w9\s[1]……。\w9\w9\s[4]この話はなかったことにしましょう！'
+        }
+    }
+}

@@ -1,0 +1,102 @@
+OnInitialize {
+    timeCount = 0
+    randomTalkCount = 0
+}
+
+OnDestroy {
+    ERASEVAR('otherGhostName')
+    ERASEVAR('prevOtherGhostName')
+    ERASEVAR('hwnd')
+    ERASEVAR('timeCount')
+    ERASEVAR('uniqueId')
+    ERASEVAR('randomTalkCount')
+}
+
+On_vanishbutton.caption {
+    '思い出の中でじっとしていてくれ'
+}
+
+On_hwnd {
+    hwnd = SPLIT(reference[0], CHR(1))[0]
+}
+
+On_uniqueid {
+    uniqueId = reference[0]
+}
+
+On_otherghostname {
+    _i = 0
+    otherGhostName = IARRAY
+    while reference[_i] {
+        otherGhostName ,= SPLIT(reference[_i], CHR(1))[0]
+        _i++
+    }
+    timeCount = 0
+}
+
+OnFirstBoot {
+    '\0\s[0]本日付けでご主人様のお世話\f[height,20%]とか夜伽の相手とか\f[height,default]をすることになった、\w9山然(ざんねん)にしきです！\w9\w9こちらトリセツとなっております、\w9ご査収ください！\w9\w9\w9\![open,readme]'
+    --
+    if ARRAYSIZE(otherGhostName) > 0 {
+        '\0……ところで、\w9何やら他の方がいらっしゃる様子。\w9\w9少し離れたところへ移動しましょう！\w9\w9\![raise,OnCloseOthers]'
+    }
+}
+
+OnBoot {
+    if ARRAYSIZE(otherGhostName) == 0 {
+        '\0\s[4]えへへ、\w9ご主人さまと2人っきりだあ！'
+        '\0\s[4]ご主人さま〜。\w9\w9\s[5]ふへへ…。'
+        return
+    }
+    '\0\s[4]わたし以外の方には帰っていただきます！\w9\w9\![raise,OnCloseOthers]'
+    '\0\s[3]やや、\w9何やら他の方がいらっしゃる様子。\w9\w9\s[4]ご主人さま、\w9わたしと向こうへ行きましょう！\w9\w9\![raise,OnCloseOthers]'
+}
+
+OnClose {
+    '\0\s[5]ぬーん。\w9\w9もう行ってしまわれるのですね…。\w9\w9\-'
+}
+
+OnGhostChanging {
+    '\0\s[5]ああー、\w9困りますご主人さま！\w9\w9その操作をされるとご主人さまがハーレムを築かれてしまいます！\w9\w9ご主人さまの伴侶はわたし1人なのに！\w9\w9あー待ってー\w9\w9'
+}
+
+OnGhostCallComplete {
+    '\0\s[3]呼び出しておいてなんですが！\w9\w9\s[4]おさらばです！\w9\w9\![raise,OnCloseOthers]'
+}
+
+OnOtherGhostBooted {
+    '\0\s[3]あーいけませんいけません。\w9\w9\s[4]お帰りくださいませ！\w9\w9\![raise,OnCloseOthers]'
+}
+
+OnVanishSelecting {
+    '\0\s[2]えっ…\w9思い出の中でじっとしててほしいんですか…？\w9\w9'
+}
+
+OnVanishSelected {
+    '\0\s[2]そんな…ひどい…\w9\w9\![embed,OnPopUp,わたしは思い出にはなりませんよ？,Error,21,4]'
+}
+
+OnSecondChange {
+    timeCount = (timeCount + 1) % 10
+    randomTalkCount = (randomTalkCount + 1) % 180
+    if randomTalkCount == 0 {
+        RandomTalk
+        return
+    }
+    if timeCount != 0 {
+        return
+    }
+    if ARRAYSIZE(otherGhostName) == 0 {
+        return
+    }
+    '\0\s[4]お行儀の悪い子は出荷ですよー！\w9\w9\![raise,OnForceCloseOthers]'
+}
+
+OnMouseDoubleClick {
+    '\0\s[1]？！？！！？！？？！！\w9\w9\w9\s[3]ご、\w9ご主人さま、\w9触る時は触ると言ってくださらないとわたし、\w9びっくりして仏様になっちゃいますよ！'
+}
+
+OnSurfaceRestore {
+    '\0\s[0]'
+}
+

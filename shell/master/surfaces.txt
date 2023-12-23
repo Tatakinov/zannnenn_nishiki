@@ -1,0 +1,32 @@
+descript
+{
+    version, 1
+}
+
+surface0 {
+    element0,overlay,surface0.png,0,0
+}
+
+surface1 {
+    element0,overlay,surface1.png,0,0
+}
+
+surface2 {
+    element0,overlay,surface2.png,0,0
+}
+
+surface3 {
+    element0,overlay,surface3.png,0,0
+}
+
+surface4 {
+    element0,overlay,surface4.png,0,0
+}
+
+surface5 {
+    element0,overlay,surface5.png,0,0
+}
+
+surface10 {
+    element0,overlay,null.png,0,0
+}

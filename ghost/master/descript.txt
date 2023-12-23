@@ -1,0 +1,13 @@
+charset,UTF-8
+readme.charset,UTF-8
+
+type,ghost
+name,山然にしき
+
+sakura.name,山然にしき
+kero.name,None
+
+craftman,tatakinov
+craftmanw,タタキノフ
+
+shiori,yaya.dll
